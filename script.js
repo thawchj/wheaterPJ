@@ -38,7 +38,23 @@ function theResponse(response) {
     tempmaxx.innerHTML = parseInt(jsonObject.main.temp_max- 273) + "°c";
     tempminn.innerHTML = parseInt(jsonObject.main.temp_min- 273) + "°c";
 
-    const timedate = parseInt(new Date().getTime());
+    const timedate = new Date();
+    const timedate1 = new Date().getTime();
+    console.log('timedate ',timedate);
+    console.log('timedate1 ',timedate1);
+    const time2 = new Date();
+    time2.setTime(timedate1);
+    console.log('time2',time2);
+    const localoffset = parseInt(new Date().getTimezoneOffset()*60*1000);
+    console.log(localoffset);
+    const destoffset = parseInt(jsonObject.timezone*1000);
+    console.log('destoffset: ',destoffset);
+    const plus = timedate1+localoffset+destoffset
+    const time3 = new Date();
+    time3.setTime(plus);
+    console.log('time3update',time3);
+    
+    /*const timedate = parseInt(new Date().getTime());
     const destoffset = parseInt(jsonObject.timezone)/60;
     const localoffset = new Date().getTimezoneOffset;
     console.log('destoffset: ',destoffset);
@@ -59,7 +75,7 @@ var offset = destoffset-localoffset;
 
      
     // date2.innerHTML = jsonObject.timezone+30000;
-    date2.innerHTML = new Date( timedate +parseInt(jsonObject.timezone)).toUTCString();
+    date2.innerHTML = new Date( timedate +parseInt(jsonObject.timezone)).toUTCString();*/
     //date1.innerText = dateBuilder(now);
     
     //time.innerHTML = jsonObject.timezone;
