@@ -6,10 +6,12 @@ const icon = document.querySelector(".icon");
 const temperature = document.querySelector(".temp");
 const tempmaxx = document.querySelector(".temp-max");
 const tempminn = document.querySelector(".temp-min");
-const date1 = document.querySelector('.lo .date');
-const date2 = document.querySelector('.lo .a');
-
-
+const weatherdescription = document.querySelector(".weatherdescription");
+const countryName = document.querySelector(".country-name");
+const weathericon = document.querySelector(".weathericon");
+const weatherbody = document.querySelector(".weatherbody");
+const windjs = document.querySelector(".wind")
+const humidityjs = document.querySelector(".humidity")
 
 searchButton.addEventListener("click", findWeatherDetails);
 searchInput.addEventListener("keyup", enterPressed);
@@ -33,59 +35,23 @@ function findWeatherDetails(){
 function theResponse(response) {
     const jsonObject = JSON.parse(response);
     cityName.innerHTML = jsonObject.name;
-    icon.src = "http://openweathermap.org/img/w/" + jsonObject.weather[0].icon + ".png" ;
+    weatherdescription.innerHTML = jsonObject.weather[0].description;
+    weathericon.innerHTML = `<img src="icons/${jsonObject.weather[0].icon}.png"/>`;
     temperature.innerHTML = parseInt(jsonObject.main.temp - 273) + "°c";
-    tempmaxx.innerHTML = parseInt(jsonObject.main.temp_max- 273) + "°c";
-    tempminn.innerHTML = parseInt(jsonObject.main.temp_min- 273) + "°c";
+    tempmaxx.innerHTML = " " + parseInt(jsonObject.main.temp_max- 273)+ "°c";
+    tempminn.innerHTML = " " + parseInt(jsonObject.main.temp_min- 273)+ "°c";
+    countryName.innerHTML = "," + jsonObject.sys.country;
+    humidityjs.innerHTML = " Humidity " + jsonObject.main.humidity + "%";
+    windjs.innerHTML = " Wind " + jsonObject.wind.speed + " m/s" ;
+    const daynight = jsonObject.weather[0].icon;
+    if(daynight.includes('n')){
+        document.body.style.backgroundImage = "url('backgroundnight.jpg')";
+    }
+    else if(daynight.includes('d')){
+        document.body.style.backgroundImage = "url('backgroundday.jpg')";
+    }
 
-    const timedate = new Date();
-    const timedate1 = new Date().getTime();
-    console.log('timedate ',timedate);
-    console.log('timedate1 ',timedate1);
-    const time2 = new Date();
-    time2.setTime(timedate1);
-    console.log('time2',time2);
-    const localoffset = parseInt(new Date().getTimezoneOffset()*60*1000);
-    console.log(localoffset);
-    const destoffset = parseInt(jsonObject.timezone*1000);
-    console.log('destoffset: ',destoffset);
-    const plus = timedate1+localoffset+destoffset
-    const time3 = new Date();
-    time3.setTime(plus);
-    console.log('time3update',time3);
-    
-    /*const timedate = parseInt(new Date().getTime());
-    const destoffset = parseInt(jsonObject.timezone)/60;
-    const localoffset = new Date().getTimezoneOffset;
-    console.log('destoffset: ',destoffset);
-    console.log('localoffset: ',localoffset);
-    // date1.innerHTML = new Date( timestamp).toUTCString();
-    
-var offset = destoffset-localoffset;
-    date1.innerHTML = new Date( new Date().getTime() + offset * 3600 * 1000).toUTCString();
-
-
-
-     console.log('debug: ', new Date().getTime());
-    
-     console.log('debug timezone: ', parseInt(jsonObject.timezone));
-     console.log('new Date().getTime()+parseInt(jsonObject.timezone): ',timedate +parseInt(jsonObject.timezone));
-
-    //  console.log('debug timezone utc: ', parseInt(jsonObject.timezone).toUTCString());
-
-     
-    // date2.innerHTML = jsonObject.timezone+30000;
-    date2.innerHTML = new Date( timedate +parseInt(jsonObject.timezone)).toUTCString();*/
-    //date1.innerText = dateBuilder(now);
-    
-    //time.innerHTML = jsonObject.timezone;
-    
-    //date = new Date(time.getTime() + timezone*1000);
-    //date2 = date.toUTCString()
-    //const time = new Date();
-//const date2 = document.querySelector(".lo .date");
 }
-
 
 function httpRequestAsync(url, callback){
     const httpRequest = new XMLHttpRequest();
@@ -97,30 +63,3 @@ function httpRequestAsync(url, callback){
     httpRequest.open("GET", url, true);
     httpRequest.send();
 }
-
-
-
-function dateBuider(d) {
-    let months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-    let days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-    let day = days[d.getDay()];
-    let date = d.getDate();
-    let month = months[d.getMonth()];
-    let year = d.getFullYear();
-
-    return `${day} ${date} ${month} ${year}`;
-}
-
-
-/*var d = new Date();
-var a = new Date(d.getTime() + timezone *1000);
-
-var n = a.toUTCString();
-console.log(d);
-console.log(a);
-console.log(n);*/
-
-
-
-
-

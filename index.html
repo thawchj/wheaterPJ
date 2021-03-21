@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     
+    
 </head>
 <body>
     <div class="weatherbody">
@@ -16,17 +17,20 @@
         </header>
         <main>
             <section class="lo">
-                <div class="city-name">city</div>
-                <div class="date">date</div>
-                <div class="a">date2</div>
-                <p id="demo"></p>
+                <span class="city-name">city,</span>
+                <span class="country-name">country</span>   
             </section>
             <div class="now">
-                <div class="temp">temp</div>
-                <div class="icon"></div>
+                <div class="temp">-°c</div>
+                <div class="weathericon"><img src="icons/unknown.png"></div>
+                <div class="weatherdescription">-</div>
                 <div class="hi-low">
-                    <div class="temp-min">min</div>
-                    <div class="temp-max">max</div> 
+                    <i class="fa fa-caret-up" aria-hidden="true"></i><span class="temp-max"> - °c</span>
+                    <i class="fa fa-caret-down" aria-hidden="true"></i><span class="temp-min"> - °c</span> 
+                </div>
+                <div class='windandhumidity'>
+                    <i class="fa fa-leaf" aria-hidden="true"></i><span class="wind"> Wind - m/s</span>
+                    <i class="fa fa-tint" aria-hidden="true"></i><span class="humidity"> Humidity - %</span>
                 </div>
             </div>
 
